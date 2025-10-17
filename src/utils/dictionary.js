@@ -12,10 +12,10 @@ const __dirname = path.dirname(__filename);
         const filePath = path.join(__dirname, '../data/passwords.csv');
         const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
         for (let line of lines) {
-            if (!line) continue; // línea vacía
+            if (!line) continue;
             const parts = line.split(',');
-            const pwd = parts[0]?.trim(); // asumimos primera columna
-            if (pwd) commonPasswords.add(pwd);
+            const pwd = parts[0]?.trim();
+            if (pwd) commonPasswords.add(pwd.toLowerCase());
         }
         console.log(`Diccionario cargado con ${commonPasswords.size} contraseñas.`);
     } catch (err) {
@@ -24,5 +24,18 @@ const __dirname = path.dirname(__filename);
 })();
 
 export function isCommonPassword(password) {
-    return commonPasswords.has(password);
+    const pwd = password.toLowerCase();
+
+    if (commonPasswords.has(pwd)) {
+        return 'Insegura (Contraseña común)';
+    }
+
+    for (const commonPwd of commonPasswords) {
+        if (commonPwd.includes(pwd)) {
+            return 'Insegura (Contraseña común parcial)';
+        }
+
+    }
+
+    return null;
 }

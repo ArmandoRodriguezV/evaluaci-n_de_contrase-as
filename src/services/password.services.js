@@ -14,7 +14,7 @@ export function check_password_strength(password) {
     }
 
     if (isCommonPassword(password)) {
-        strength = "Insegura (Contraseña Común)";
+        strength = isCommonPassword(password);
     }
 
     const attempts = Math.pow(2, entropy);
@@ -24,7 +24,6 @@ export function check_password_strength(password) {
     return { entropy, strength, crackTime };
 }
 
-// Formateo amigable de tiempo
 export function formatTime(seconds) {
     if (seconds < 60) return `${seconds.toFixed(2)} segundos`;
     if (seconds < 3600) return `${(seconds / 60).toFixed(2)} minutos`;
