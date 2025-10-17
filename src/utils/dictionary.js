@@ -24,18 +24,13 @@ const __dirname = path.dirname(__filename);
 })();
 
 export function isCommonPassword(password) {
-    const pwd = password.toLowerCase();
-
-    if (commonPasswords.has(pwd)) {
+    if (commonPasswords.has(password)) {
         return 'Insegura (Contraseña común)';
     }
-
     for (const commonPwd of commonPasswords) {
-        if (commonPwd.includes(pwd)) {
+        if (commonPwd.includes(password)) {
             return 'Insegura (Contraseña común parcial)';
         }
-
     }
-
     return null;
 }
