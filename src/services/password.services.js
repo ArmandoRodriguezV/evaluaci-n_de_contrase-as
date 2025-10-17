@@ -5,16 +5,12 @@ export function check_password_strength(password) {
     const entropy = calculate_entropy(password);
     let strength = "";
 
-    if (entropy < 28) {
-        strength = "Muy Débil";
-    } else if (entropy < 36) {
-        strength = "Débil";
-    } else if (entropy < 60) {
-        strength = "Aceptable";
-    } else if (entropy < 80) {
+    if (entropy < 60) {
+        strength = "Débil o Aceptable (crackeable en horas/días)";
+    } else if ((entropy < 80) && (entropy >= 60)) {
         strength = "Fuerte";
     } else {
-        strength = "Muy Fuerte";
+        strength = "Muy Fuerte (Estándar de seguridad moderna)";
     }
 
     if (isCommonPassword(password)) {
