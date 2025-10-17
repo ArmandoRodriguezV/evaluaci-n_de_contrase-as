@@ -1,7 +1,3 @@
-const calculate_len = (password) => {
-    return password.length;
-}
-
 const calculate_n = (password) => {
     let N = 0;
 
@@ -21,7 +17,7 @@ const calculate_n = (password) => {
 }
 
 export function calculate_entropy(password) {
-    const L = calculate_len(password);
+    const L = password.length;
     const N = calculate_n(password);
     if (N === 0) return 0;
     const entropy = L * Math.log2(N);
